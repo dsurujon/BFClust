@@ -27,10 +27,10 @@ newtreeseqs = newseqs(arrayfun(@(x) newtree{x}{1}, [1:length(newtree)]));
 treeseqs = fastaread(treeseqsfile);
 load(clusterdatafile, 'trees', 'clusterres_ext', 'consclust');
 
-new_consclust = cell(1,6);
+new_consclust = cell(1,7);
 % assign to a representative for each method, each BT
-new_clusterres_ext = cell(1,6); 
-for method_ix = 1:6
+new_clusterres_ext = cell(1,7); 
+for method_ix = 1:7
     ext_thismethod = zeros(length(newtreeseqs), ntree);
    for tree_ix = 1:ntree 
         [rep_seq, rep_seq_tree_ix] = find_closest_on_BF(newtreeseqs,trees{tree_ix},treeseqs);

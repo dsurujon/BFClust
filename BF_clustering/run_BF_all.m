@@ -79,7 +79,7 @@ for i=1:replicates
     [gnew, msg] = mcl_wrapper(dms{i});
     ALL_clusters{7,1,i} = conncomp(digraph(gnew),'Type','weak');
 end
-save(outfilename, 'ALL_clusters','krangenew','-append');
+save(outfilename, 'ALL_clusters','-append');
 
 
 % pick best cluster - finding elbow
@@ -157,4 +157,23 @@ save(outfilename,'fastafile',...
     'consclust',...
     'kcons','-append')
 
+disp('Writing consensus clusters to csv');
+
+outcsvname = strcat(name,'.csv');
+outcsvname = fullfile(outdir, outcsvname);
+mymat = strings(length(seqs),8);
+for method = 1:7
+	for i = 1:length(seqs)
+		mymat(i,1) = seqs(i).Header;
+		mymat(i,method+1) = string(consclust{method}(i));
+	end
 end
+
+mymatheaders = string({'Sequence','Ward','Kmeans',...
+'Kmeans vectorized','Spectral NN',...
+'Spectral SM','Spectral JW', 'MCL'});
+mymat  = [mymatheaders;mymat];
+cell2csv(outcsvname,mymat);
+end
+
+
