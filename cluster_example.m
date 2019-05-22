@@ -1,7 +1,7 @@
 addpath('BF_clustering');
 
 % input sequences
-myfastafile = 'T4first10.fasta';
+myfastafile = 'dataset-010-0.fasta';
 % number of clusters 
 % default is 3000:200:10000(range from 3000 to 10000 for pan-genomes
 % with increments of 200). 
