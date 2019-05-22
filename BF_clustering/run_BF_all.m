@@ -1,10 +1,5 @@
-function run_BF_all(fastafile, krange, replicates, outdir)
+function run_BF_all(fastafile, krange, replicates, outdir, isparallel)
 
-%clear('all');
-
-%addpath('BF_clustering');
-
-%fastafile = '.\fasta\T4first10.fasta';
 eps = 0.1;
 max_deg = 10;
 
@@ -15,7 +10,9 @@ max_deg = 10;
 outfilename = strcat(name,'.mat');
 outfilename = fullfile(outdir, outfilename);
 
-parobj = parpool(replicates);
+if isparallel==true
+	parobj = parpool(replicates);
+end
 
 %make trees (n replicates)
 seqs = fastaread(fastafile);
@@ -24,23 +21,40 @@ tree_node_refs = cell(1,replicates);
 data_order_ixs = cell(1,replicates);
 
 disp('Making Boundary Forest');
-parfor i=1:replicates
-    disp(i);
-    [tree,tree_node_ref,data_order_ix] = boundary_tree(seqs, eps, max_deg);
-    trees{i} = tree;
-    tree_node_refs{i} = tree_node_ref;
-    data_order_ixs{i} = data_order_ix;
+if isparallel==true
+	parfor i=1:replicates
+		disp(i);
+		[tree,tree_node_ref,data_order_ix] = boundary_tree(seqs, eps, max_deg);
+		trees{i} = tree;
+		tree_node_refs{i} = tree_node_ref;
+		data_order_ixs{i} = data_order_ix;
+	end
+else
+	for i=1:replicates
+		disp(i);
+		[tree,tree_node_ref,data_order_ix] = boundary_tree(seqs, eps, max_deg);
+		trees{i} = tree;
+		tree_node_refs{i} = tree_node_ref;
+		data_order_ixs{i} = data_order_ix;
+	end
 end
-
 save(outfilename, 'trees','tree_node_refs','data_order_ixs','-v7.3');
 
 %make dms (n replicates)
 disp('Calculating distance matrices');
 dms = cell(1,replicates);
-parfor i=1:replicates
-    disp(i);
-    dms{i} = pairwise_distances(trees{i}, seqs);
+if isparallel==true
+	parfor i=1:replicates
+		disp(i);
+		dms{i} = pairwise_distances(trees{i}, seqs);
+	end
+else
+	for i=1:replicates
+		disp(i);
+		dms{i} = pairwise_distances(trees{i}, seqs);
+	end
 end
+
 save(outfilename, 'dms','-append');
 
 
