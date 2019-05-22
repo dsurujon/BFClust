@@ -1,3 +1,11 @@
+% DS May 2019
+% Run BFClust - all 7 downstream methods
+% [input] fastafile: name of fasta file that contains all amino acid sequences to be clustered
+% [input] krange: range of k (#clusters) to be scanned
+% [input] replicates: size of the forest (recommended: 10)
+% [input] outdir: output directory 
+% [input] isparallel: whether or not to parallelize the BF and distance matrix steps. Requires as many cores as replicates.  
+
 function run_BF_all(fastafile, krange, replicates, outdir, isparallel)
 
 eps = 0.1;
