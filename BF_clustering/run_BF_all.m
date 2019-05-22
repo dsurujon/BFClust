@@ -2,7 +2,7 @@ function run_BF_all(fastafile, krange, replicates, outdir)
 
 %clear('all');
 
-addpath('BF_clustering');
+%addpath('BF_clustering');
 
 %fastafile = '.\fasta\T4first10.fasta';
 eps = 0.1;
@@ -139,12 +139,12 @@ end
 save(outfilename, 'clusterres_ext','-append');
 
 %consensus clustering
-disp('Consensus clustering using hierarchical-ward');
+disp('Consensus clustering using kmedioids');
 consclust = cell(1,7);
 kcons = zeros(1,7);
 
 for method = 1:7
-    [this_consclust,this_kcons] = consensus_clustering(clusterres_ext{method},bestcluster(method,:));
+    [this_consclust,this_kcons] = consensus_clustering_kmed(clusterres_ext{method},bestcluster(method,:));
     consclust{method} = this_consclust;
     kcons(method) = this_kcons;
 end

@@ -14,5 +14,5 @@
 function [consclust, kcons] = consensus_clustering_kmed(clusterres_ext, bestcluster)
 kcons = mode(bestcluster);
 disp(kcons);
-consclust=kmedoids(clusterres_ext,kcons,'Distance','hamming');
+consclust=kmedoids(clusterres_ext,kcons,'Distance','hamming','Algorithm','clara');
 end

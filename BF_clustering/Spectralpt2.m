@@ -17,6 +17,8 @@ end
 % C = kmeans(U, k, 'start', 'cluster', ...
 %                  'EmptyAction', 'singleton');
 C=kmeans(U,k);
+replacement = max(C)+1;
+C(isnan(C)) = replacement;
 % now convert C to a n-by-k matrix containing the k indicator
 % vectors as columns
 %C = sparse(1:size(D, 1), C, 1);
