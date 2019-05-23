@@ -1,6 +1,6 @@
 # BFClust
 
-Boundary Forest Clustering is a pan-genome clustering pipeline written in MATLAB. Clustering is done in 3 major steps:    
+Boundary Forest Clustering is a pan-genome clustering pipeline written in MATLAB. Boundary Forest Clustering is done in 3 major steps:    
 1. **Boundary Forest.** This generates a number of boundary trees based on sequence similarity (See [Mathy et al., 2015](https://arxiv.org/abs/1505.02867) for more detail on boundary forest). A sequence is either added to the tree as a new representative, or if there is an existing representative on the tree that is sufficiently close to this sequence, the sequence is annotated with this representative, and omitted from the tree. Boundary trees thus contain a small subset of input sequences as representative sequences, that are arranged in a tree-structure based on sequence similarity.
 2. **Cluster.** Clustering is performed on each boundary tree. Currently 7 clustering methods are implemented downstream of boundary forest. These include hierarchical, kmeans, kmeans(vectorized), spectral, spectral (Shi-Malik normalized), spectral (Ng-Jordan-Weiss normalized) and Markovian clustering. Once the representative sequences are clustered, the clustering assignments are extended to the full dataset. 
 3. **Consensus Clustering.** The clustering on the different boundary tree representatives may not always yield identical results. Taking a consensus of the clustering assignments across the forest reduces errors for all downstream clustering methods.     
