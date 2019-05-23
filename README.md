@@ -17,6 +17,8 @@ This is used for clustering a new sequence set. BFClust has the option of cluste
 * ```outdir```: name of the output directory
 * ```isparallel```: whether ot not to parallelize the boundary forest construction, and distance matrix calculation. It is HIGHLY recommended that this is set to ```true``` to reduce runtime. When set to ```true```, the number of cores requires will be equal to ```replicates``` 
 * ```methodname```: **(Only for ```run_BF_single```)** Name of clustering method to be used (one of ```HIE, KMN, KMV, SP1, SP2, SP3, MCL```.     
+    
+    
 There will be up to 3 output files generated inside ```outdir```, named after the input file name. The ```.mat``` file contains all intermediate data, including boundary forest, distance matrices, clustering assignments, consensus.     
 The ```.csv``` file is a table of sequence headers (from the input fasta file) and the cluster assignments. When ```cluster_BF_all``` is used, there will be 7 columns, each corresponding to one method.    
 Finally, the ```.png``` file shows the SSE trace for each tree for the selected method(s) - with the exception of MCL. For MCL, the best number of clusters is determined without the use of elbow detection on the SSE traces, therefore no plot is generated.     
