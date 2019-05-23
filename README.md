@@ -33,7 +33,7 @@ The ```add_to_clustering.m``` script assigns clusters to a new set of sequences 
 * ```clusterdatafile```: name of ```.mat``` file containing the clustering data for the existing set of sequences (this file is generated during *de novo* clustering)
 * ```ntree```: number of trees in the boundary forest
 
-
+-----------------
 Several scripts utilize existing code from others' libraries    
 * Spectral Clustering is modified from https://www.mathworks.com/matlabcentral/fileexchange/34412-fast-and-efficient-spectral-clustering
 * MCL is modified from https://github.com/biocoder/SBEToolbox/blob/master/mcl.m
