@@ -33,7 +33,9 @@ The ```add_to_clustering.m``` script assigns clusters to a new set of sequences 
 * ```newseqsfile```: name of fasta file containing new sequences
 * ```treeseqsfile```: name of fasta file containing the sequences that have already been clustered
 * ```clusterdatafile```: name of ```.mat``` file containing the clustering data for the existing set of sequences (this file is generated during *de novo* clustering)
-* ```ntree```: number of trees in the boundary forest
+* ```allmethods```: whether or not all 7 clustering methods are considered (i.e. is ```clusterdatafile``` generated using ```cluster_BF_all``` or ```cluster_BF_single```?)    
+    
+An example use case is provided in the script ```add_to_cluster_example.m```. This example takes the  ```dataset-010-1.fasta``` sequence set as new input (similar to ```dataset-010-0.fasta```, there are 500 sequences; 50 copies of 10 genes with a small mutation rate), and adds it to the clustering results of ```dataset-010-0```. The example output is also in ```testout```. 
 
 -----------------
 Several scripts utilize existing code from others' libraries    
