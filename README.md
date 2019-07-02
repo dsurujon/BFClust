@@ -26,7 +26,7 @@ An example use case is provided in the script ```cluster_example.m```. This exam
 
 
 ## Adding to existing clustering
-This is used when a clstering partition already exists, and one wishes to assign clusters to a new sequence set. This is especially useful when a large number of sequences have already been clustered, and a relatively small sequence set is to be assigned clusters. The advantage here is two-fold:     
+This is used when a clustering partition already exists, and one wishes to assign clusters to a new sequence set. This is especially useful when a large number of sequences have already been clustered, and a relatively small sequence set is to be assigned clusters. The advantage here is two-fold:     
 1. Existing cluster assignments are not changed
 2. Adding new sequences is faster than clustering the old and new sequences together    
 The ```add_to_clustering.m``` script assigns clusters to a new set of sequences by finding the closest cluster in the existing clustering of the existing set of sequences. The inputs this function takes are as follows:    
