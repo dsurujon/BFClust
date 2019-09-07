@@ -11,7 +11,7 @@
 % a .csv and .mat file will be written in the same directory as clusterdatafile
 
 function add_to_clustering(newseqsfile, treeseqsfile, clusterdatafile, allmethods)
-newseqs = fastaread(newseqsfile);
+newseqs = read_and_clean(newseqsfile);
 [filepath,name,ext] = fileparts(newseqsfile);
 [clstfilepath,clstname,clstext] = fileparts(clusterdatafile);
 outfilename = strcat(name, '.mat');

@@ -23,7 +23,7 @@ if isparallel==true
 end
 
 %make trees (n replicates)
-seqs = fastaread(fastafile);
+seqs = read_and_clean(fastafile);
 trees = cell(1,replicates);
 tree_node_refs = cell(1,replicates);
 data_order_ixs = cell(1,replicates);

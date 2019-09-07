@@ -15,7 +15,7 @@
 
 function [new_consclust, new_clusterres_ext] = add_to_clustering_all(newseqsfile, treeseqsfile, clusterdatafile)
 
-newseqs = fastaread(newseqsfile);
+newseqs = read_and_clean(newseqsfile);
 % make a boundary tree out of newseqsfile
 eps = 0.1;
 max_deg = 10;
@@ -24,7 +24,7 @@ max_deg = 10;
 newtreeseqs = newseqs(arrayfun(@(x) newtree{x}{1}, [1:length(newtree)]));
 
 
-treeseqs = fastaread(treeseqsfile);
+treeseqs = read_and_clean(treeseqsfile);
 load(clusterdatafile, 'trees', 'clusterres_ext', 'consclust');
 ntree = size(trees, 2);
 
