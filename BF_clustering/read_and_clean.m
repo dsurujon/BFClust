@@ -8,6 +8,9 @@
 % B -> D
 % J -> I
 % Z -> E
+% also replace nonstandard amino acids
+% U -> C
+% O -> K
 
 function seqs = read_and_clean(fastafile)
 
@@ -17,6 +20,8 @@ for i=1:length(seqs)
 	cleanseq = strrep(thisseq, 'B', 'D');
 	cleanseq = strrep(cleanseq, 'J', 'I');
 	cleanseq = strrep(cleanseq, 'Z', 'E');
+	cleanseq = strrep(cleanseq, 'U', 'C');
+	cleanseq = strrep(cleanseq, 'O', 'K');
 	seqs(i).Sequence = cleanseq;
 end
 
