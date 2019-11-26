@@ -24,7 +24,7 @@ end
 % whether to parallelize the BF construction and DM generation steps
 % it is HIGHLY recommended to set this to true for improving runtime. 
 % When true, n_trees cores will be utilized. 
-parallelize = true;
+parallelize = false;
 
 % run the BF clustering pipeline
 run_BF_all(myfastafile, scan_clusters , n_trees, myoutputdir, parallelize);
