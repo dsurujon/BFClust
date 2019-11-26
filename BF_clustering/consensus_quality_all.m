@@ -23,39 +23,36 @@ N = size(clusterres_ext{1},1);
 item_consensus = cell(1,7);
 cluster_consensus = cell(1,7);
 for method = 1:7 
-    clusters_method1 = clusterres_ext{method};
-    consensus_method1 = consclust{method};
+    clusterres_method = clusterres_ext{method};
+    consensus_method = consclust{method};
     
-    %make the connectivity matrices
-    M = zeros(N, N, n_tree);
-    for i=1:n_tree
-        M(:,:,i) = clusters_method1(:,i)==clusters_method1(:,i)';
-    end
-    % make consensus - average of all the M
-    M_cons = mean(M,3);
+    allclusters = unique(consensus_method)';
+
+    item_scores_method = zeros(1,N);
+    cluster_scores_method = zeros(1,length(allclusters));
     
-    % item consensus
-    this_item_consensus = zeros(1,N);
-    for i = 1:N
-       thiscluster = consensus_method1(i);
-       ix = consensus_method1==thiscluster;
-       M_cons_sub = M_cons(i, ix);
-       this_item_consensus(i) = mean(M_cons_sub);
-    end
-    
-    % cluster consensus
-    allclusters = unique(consensus_method1)';
-    this_cluster_consensus = zeros(1,length(allclusters));
     i=1;
-    for cluster=allclusters
-        ix = consensus_method1==cluster;
-        M_cons_sub = M_cons(ix,ix);
-        this_cluster_consensus(i) = mean(mean(M_cons_sub));
-        i=i+1;
+    for cluster = allclusters
+        %find the indices of this cluster
+       thiscluster_ix = consensus_method==cluster;
+       n_clust = sum(thiscluster_ix);
+       % make the connectivity matrices (only for this cluster to save
+       % memory)
+       M = zeros(n_clust, n_clust, n_tree); 
+       for tree=1:n_tree
+           M(:,:,tree) = clusterres_method(thiscluster_ix,tree)==clusterres_method(thiscluster_ix,tree)';
+       end
+       %make the consensus matrix by averaging the connectivity matrices
+       M_cons = mean(M,3);
+
+       cluster_scores_method(i) = mean(mean(M_cons));
+
+       item_scores_method(thiscluster_ix) = mean(M_cons);
+       i = i+1;
     end
-    
-    item_consensus{method} = this_item_consensus;
-    cluster_consensus{method} = this_cluster_consensus;
+
+    item_consensus{method} = item_scores_method;
+    cluster_consensus{method} = cluster_scores_method;
 
 end
 

@@ -18,34 +18,29 @@
 % [output] cluster_consensus: 1x7 cell (one for each method)
 
 function[item_consensus, cluster_consensus] = consensus_quality_single(clusterres_ext, consclust, n_tree)
-    N = size(clusterres_ext,1);
-    
-    %make the connectivity matrices
-    M = zeros(N, N, n_tree);
-    for i=1:n_tree
-        M(:,:,i) = clusterres_ext(:,i)==clusterres_ext(:,i)';
-    end
-    % make consensus - average of all the M
-    M_cons = mean(M,3);
-    
-    % item consensus
-    item_consensus = zeros(1,N);
-    for i = 1:N
-       thiscluster = consclust(i);
-       ix = consclust==thiscluster;
-       M_cons_sub = M_cons(i, ix);
-       item_consensus(i) = mean(M_cons_sub);
-    end
-    
-    % cluster consensus
     allclusters = unique(consclust)';
-    cluster_consensus = zeros(1,length(allclusters));
+    N = size(clusterres_ext,1);
+    item_scores = zeros(1,N);
+    cluster_scores = zeros(1,length(allclusters));
+    
     i=1;
-    for cluster=allclusters
-        ix = consclust==cluster;
-        M_cons_sub = M_cons(ix,ix);
-        cluster_consensus(i) = mean(mean(M_cons_sub));
-        i=i+1;
+    for cluster = allclusters
+        %find the indices of this cluster
+       thiscluster_ix = consclust==cluster;
+       n_clust = sum(thiscluster_ix);
+       % make the connectivity matrices (only for this cluster to save
+       % memory)
+       M = zeros(n_clust, n_clust, n_tree); 
+       for tree=1:n_tree
+           M(:,:,tree) = clusterres_ext(thiscluster_ix,tree)==clusterres_ext(thiscluster_ix,tree)';
+       end
+       %make the consensus matrix by averaging the connectivity matrices
+       M_cons = mean(M,3);
+
+       cluster_scores(i) = mean(mean(M_cons));
+
+       item_scores(thiscluster_ix) = mean(M_cons);
+       i = i+1;
     end
 
 end
