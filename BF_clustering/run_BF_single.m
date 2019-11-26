@@ -31,7 +31,7 @@ if isparallel==true
 end
 
 %make trees (n replicates)
-seqs = read_and_clean(fastafile);
+seqs = fastaread(fastafile);
 trees = cell(1,replicates);
 tree_node_refs = cell(1,replicates);
 data_order_ixs = cell(1,replicates);
@@ -195,21 +195,41 @@ save(outfilename,'fastafile',...
     'consclust',...
     'kcons','-append')
 
+% consensus clustering quality
+disp('Computing consensus quality');
+[item_consensus, cluster_consensus] = consensus_quality_single(clusterres_ext, consclust, replicates);
+
 disp('Writing consensus clusters to csv');
 
 outcsvname = strcat(name,'.csv');
 outcsvname = fullfile(outdir, outcsvname);
-mymat = strings(length(seqs),2);
+mymat = strings(length(seqs),3);
 
 for i = 1:length(seqs)
 	mymat(i,1) = seqs(i).Header;
 	mymat(i,2) = string(consclust(i));
+    mymat(i,3) = string(item_consensus(i));
 end
 
 
-mymatheaders = string({'Sequence',methodname});
+mymatheaders = string({'Sequence',methodname, strcat('Score ', methodname)});
 mymat  = [mymatheaders;mymat];
 cell2csv(outcsvname,mymat);
+
+disp('Writing cluster scores to file');
+
+scorescsvname = strcat(name,methodname,'_clusterscores.csv');
+scorescsvname = fullfile(outdir, scorescsvname);
+
+cons_scores = cluster_consensus;
+cons_clusters = unique(consclust);
+mymat = strings(length(cons_clusters),2);
+mymat(:,1) = cons_clusters;
+mymat(:,2) = cons_scores;
+mymatheaders = string({'Cluster', 'Score'});
+mymat = [mymatheaders;mymat];
+cell2csv(scorescsvname, mymat);
+
 end
 
 
