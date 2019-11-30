@@ -13,6 +13,13 @@
 
 function [consclust, kcons] = consensus_clustering_kmed(clusterres_ext, bestcluster)
 kcons = mode(bestcluster);
-disp(kcons);
-consclust=kmedoids(clusterres_ext,kcons,'Distance','hamming','Algorithm','clara');
+if kcons>size(clusterres_ext,1)
+	kcons = size(clusterres_ext,1);
+	disp(kcons);
+	consclust = 1:kcons;
+else
+	disp(kcons);
+	consclust=kmedoids(clusterres_ext,kcons,'Distance','hamming','Algorithm','clara');
+end
+
 end

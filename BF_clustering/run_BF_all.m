@@ -114,7 +114,7 @@ bestSSE = zeros(6,replicates);
 for method = 1:6
     for i=1:replicates
        for j=1:length(krange) 
-           disp([i,j]);
+           % disp([i,j]);
            SSE(method,j,i) = SSEDS(dms{i},ALL_clusters{method,j,i});
        end
        [bestk, bestk_ix]=find_elbow(SSE(method,:,i),krange);
