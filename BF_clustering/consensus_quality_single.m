@@ -14,10 +14,10 @@
 % output of one clustering method (NxN_tree numeric matrix)
 % [input] consclust: 1x7 cell that has consensus clustering result for 
 % each of the 7 methods
-% [output] item_consensus: 1x7 cell (one for each method)
-% [output] cluster_consensus: 1x7 cell (one for each method)
+% [output] item_scores: 1x7 cell (one for each method)
+% [output] cluster_scores: 1x7 cell (one for each method)
 
-function[item_consensus, cluster_consensus] = consensus_quality_single(clusterres_ext, consclust, n_tree)
+function[item_scores, cluster_scores] = consensus_quality_single(clusterres_ext, consclust, n_tree)
     allclusters = unique(consclust)';
     N = size(clusterres_ext,1);
     item_scores = zeros(1,N);
