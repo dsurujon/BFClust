@@ -31,7 +31,8 @@ This is used when a clustering partition already exists, and one wishes to assig
 1. Existing cluster assignments are not changed
 2. Adding new sequences is faster than clustering the old and new sequences together    
 3. The confidence scores are computed again, giving a level of uncertainty for the newly added clustering      
-The ```add_to_clustering.m``` script assigns clusters to a new set of sequences by finding the closest cluster in the existing clustering of the existing set of sequences. The inputs this function takes are as follows:    
+The ```add_to_clustering.m``` script assigns clusters to a new set of sequences by finding the closest cluster in the existing clustering of the existing set of sequences.     
+The inputs this function takes are as follows:    
 * ```newseqsfile```: name of fasta file containing new sequences
 * ```treeseqsfile```: name of fasta file containing the sequences that have already been clustered
 * ```clusterdatafile```: name of ```.mat``` file containing the clustering data for the existing set of sequences (this file is generated during *de novo* clustering)
