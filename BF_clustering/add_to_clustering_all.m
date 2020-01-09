@@ -32,21 +32,24 @@ new_consclust = cell(1,7);
 % assign to a representative for each method, each BT
 new_clusterres_ext = cell(1,7); 
 for method_ix = 1:7
-    ext_thismethod = zeros(length(newtreeseqs), ntree);
+    ext_thismethod = zeros(length(newseqs), ntree);
    for tree_ix = 1:ntree 
         [rep_seq, rep_seq_tree_ix] = find_closest_on_BF(newtreeseqs,trees{tree_ix},treeseqs);
         clusters_thistree = clusterres_ext{method_ix}(rep_seq, tree_ix);
-        ext_thismethod(:, tree_ix)=clusters_thistree;
+		extended_thismethod = extendBF_DS(clusters_thistree, newtree, newtree_node_ref);
+        ext_thismethod(:, tree_ix)=extended_thismethod;
         
    end
+
    new_clusterres_ext{method_ix} = ext_thismethod;
+   
    % find closest neighbor on consensus. 
     Idx = knnsearch(clusterres_ext{method_ix}, new_clusterres_ext{method_ix});
     % grab the consensus cluster assignment
     cons_assn = consclust{method_ix}(Idx);
     %extend consensus clustering
-    cons_assn_ext = extendBF_DS(cons_assn, newtree, newtree_node_ref);
-    new_consclust{method_ix} = cons_assn_ext;
+    %cons_assn_ext = extendBF_DS(cons_assn, newtree, newtree_node_ref);
+    new_consclust{method_ix} = cons_assn;
 end
 
 

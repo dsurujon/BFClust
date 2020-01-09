@@ -28,11 +28,12 @@ ntree = size(trees, 2);
 
 % assign to a representative for each BT
 
-new_clusterres_ext = zeros(length(newtreeseqs), ntree);
+new_clusterres_ext = zeros(length(newseqs), ntree);
 for tree_ix = 1:ntree 
 	[rep_seq, rep_seq_tree_ix] = find_closest_on_BF(newtreeseqs,trees{tree_ix},treeseqs);
 	clusters_thistree = clusterres_ext(rep_seq, tree_ix);
-	new_clusterres_ext(:, tree_ix)=clusters_thistree;
+	extended_clusters_thistree = extendBF_DS(clusters_thistree, newtree, newtree_node_ref);
+	new_clusterres_ext(:, tree_ix)=extended_clusters_thistree;
 	
 end
 % find closest neighbor on consensus. 
@@ -40,8 +41,8 @@ Idx = knnsearch(clusterres_ext, new_clusterres_ext);
 % grab the consensus cluster assignment
 cons_assn = consclust(Idx);
 %extend consensus clustering
-cons_assn_ext = extendBF_DS(cons_assn, newtree, newtree_node_ref);
-new_consclust = cons_assn_ext;
+%cons_assn_ext = extendBF_DS(cons_assn, newtree, newtree_node_ref);
+new_consclust = cons_assn;
 
 
 
