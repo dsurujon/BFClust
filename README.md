@@ -26,10 +26,10 @@ Finally, the ```.png``` file shows the SSE trace for each tree for the selected 
 An example use case is provided in the script ```cluster_example.m```. This example takes the  ```dataset-010-0.fasta``` sequence set as input (there are 500 sequences; 50 copies of 10 genes with a small mutation rate, so this should yield 10 clusters). The example output of BFClust can be found in ```testout```. 
     
 There will be several files generated within ```testout```:     
--`dataset-010-0.csv`: Clustering output as a table. Each row is a sequence, and and the cluster assignments for a given method are reported in separate columns. The item consensus score for each method is also included as a separate column for each method.     
--`dataset-010-0.m`: Clustering output and intermediate data as a MATLAB-readable file.     
--`dataset-010-0.png`: Elbow plots for each method. Cluster scatter (computed as sum of squared errors, SSE) is plotted against the number of clusters. Each line represents the clustering on a different Boundary-Tree. Each line will also have the automatically detected 'elbow point' highlighted as the optimal solution on that tree. The consensus is computed across these elbow points.     
--`dataset-010-0[Method]_clusterscores.csv`: Table listing the cluster consensus scores obtained using `Method` within `BFClust`.    
+- `dataset-010-0.csv`: Clustering output as a table. Each row is a sequence, and and the cluster assignments for a given method are reported in separate columns. The item consensus score for each method is also included as a separate column for each method.     
+- `dataset-010-0.m`: Clustering output and intermediate data as a MATLAB-readable file.     
+- `dataset-010-0.png`: Elbow plots for each method. Cluster scatter (computed as sum of squared errors, SSE) is plotted against the number of clusters. Each line represents the clustering on a different Boundary-Tree. Each line will also have the automatically detected 'elbow point' highlighted as the optimal solution on that tree. The consensus is computed across these elbow points.     
+- `dataset-010-0[Method]_clusterscores.csv`: Table listing the cluster consensus scores obtained using `Method` within `BFClust`.    
 
 ## Cluster augmentation (Adding to existing clustering)
 This is used when a clustering partition already exists, and one wishes to assign clusters to a new sequence set. This is especially useful when a large number of sequences have already been clustered, and a relatively small sequence set is to be assigned clusters. The advantage here is three-fold:     
