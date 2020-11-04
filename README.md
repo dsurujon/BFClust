@@ -39,6 +39,13 @@ The inputs this function takes are as follows:
 * ```allmethods```: whether or not all 7 clustering methods are considered (i.e. is ```clusterdatafile``` generated using ```cluster_BF_all``` or ```cluster_BF_single```?)    
     
 An example use case is provided in the script ```add_to_cluster_example.m```. This example takes the  ```dataset-010-1.fasta``` sequence set as new input (similar to ```dataset-010-0.fasta```, there are 500 sequences; 50 copies of 10 genes with a small mutation rate), and adds it to the clustering results of ```dataset-010-0```. The example output is also in ```testout```. 
+    
+## Citing
+Please cite the BFClust preprint:     
+    
+[Boundary-Forest Clustering: Large-Scale Consensus Clustering of Biological Sequences](https://www.biorxiv.org/content/10.1101/2020.04.28.065870v1)
+Defne Surujon, José Bento, Tim van Opijnen
+bioRxiv 2020.04.28.065870; doi: https://doi.org/10.1101/2020.04.28.065870
 
 -----------------
 Several scripts utilize existing code from others' libraries    
